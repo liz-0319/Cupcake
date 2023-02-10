@@ -17,6 +17,7 @@ package com.example.cupcake
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -52,26 +53,18 @@ class StartFragment : Fragment() {
         binding?.startFragment = this
     }
 
-    /**
-     * Start an order with the desired quantity of cupcakes and navigate to the next screen.
-     */
     fun orderCupcake(quantity: Int) {
-        // Update the view model with the quantity
         sharedViewModel.setQuantity(quantity)
-
-        // If no flavor is set in the view model yet, select vanilla as default flavor
         if (sharedViewModel.hasNoFlavorSet()) {
             sharedViewModel.setFlavor(getString(R.string.vanilla))
         }
 
-        // Navigate to the next destination to select the flavor of the cupcakes
         findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
     }
 
-    /**
-     * This fragment lifecycle method is called when the view hierarchy associated with the fragment
-     * is being removed. As a result, clear out the binding object.
-     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
